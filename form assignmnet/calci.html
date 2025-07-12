@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Arithmetic Operations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      padding-top: 40px;
+    }
+
+    .container {
+      background-color: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+      text-align: center;
+    }
+
+    input, select, button {
+      margin: 10px 0;
+      padding: 10px;
+      width: 90%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      width: 45%;
+      cursor: pointer;
+    }
+
+    .calculate-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .clear-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .history {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .history h4 {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Interactive Arithmetic Operations</h2>
+    
+    <input type="number" id="numA" placeholder="Enter Number A">
+    <input type="number" id="numB" placeholder="Enter Number B">
+
+    <select id="operation">
+      <option value="add">Addition (+)</option>
+      <option value="sub">Subtraction (-)</option>
+      <option value="mul">Multiplication (*)</option>
+      <option value="div">Division (/)</option>
+    </select>
+
+    <div>
+      <button class="calculate-btn" onclick="calculate()">Calculate</button>
+      <button class="clear-btn" onclick="clearFields()">Clear</button>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <div class="history">
+      <h4>Calculation History</h4>
+      <ul id="historyList"></ul>
+    </div>
+  </div>
+
+  <script>
+    const resultEl = document.getElementById("result");
+    const historyList = document.getElementById("historyList");
+
+    function calculate() {
+      const a = parseFloat(document.getElementById("numA").value);
+      const b = parseFloat(document.getElementById("numB").value);
+      const op = document.getElementById("operation").value;
+
+      if (isNaN(a) || isNaN(b)) {
+        resultEl.textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      let result;
+      let expression;
+
+      switch(op) {
+        case "add":
+          result = a + b;
+          expression = `${a} + ${b} = ${result}`;
+          break;
+        case "sub":
+          result = a - b;
+          expression = `${a} - ${b} = ${result}`;
+          break;
+        case "mul":
+          result = a * b;
+          expression = `${a} * ${b} = ${result}`;
+          break;
+        case "div":
+          if (b === 0) {
+            resultEl.textContent = "Cannot divide by zero.";
+            return;
+          }
+          result = a / b;
+          expression = `${a} / ${b} = ${result}`;
+          break;
+      }
+
+      resultEl.textContent = `Result: ${expression}`;
+      addToHistory(expression);
+    }
+
+    function addToHistory(entry) {
+      const li = document.createElement("li");
+      li.textContent = entry;
+      historyList.appendChild(li);
+    }
+
+    function clearFields() {
+      document.getElementById("numA").value = "";
+      document.getElementById("numB").value = "";
+      document.getElementById("operation").selectedIndex = 0;
+      resultEl.textContent = "";
+    }
+  </script>
+</body>
+</html>

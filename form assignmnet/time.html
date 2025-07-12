@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Zone Display</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 30px;
+        }
+        .time-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .time-box h2 {
+            margin-bottom: 15px;
+            font-size: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        .time-box .time {
+            font-size: 2.5rem; /* Larger font size for time */
+            font-weight: bold;
+            text-align: center;
+        }
+        .time-box .date {
+            font-size: 1.2rem; /* Smaller font size for date */
+            font-weight: normal;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .dropdown-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        select.form-select {
+            border-radius: 15px;
+            padding: 12px;
+            font-size: 1rem;
+            width: 70%;
+            margin: 10px auto;
+        }
+        .form-select:focus {
+            border-color: #2575fc;
+            box-shadow: 0 0 0 0.25rem rgba(37, 117, 252, 0.25);
+        }
+        .time-box .time, .time-box .date {
+            color: #333;
+        }
+        .time-box {
+            background: linear-gradient(135deg, #ffffff 30%, #f0f0f0 100%);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <!-- Local Time Box -->
+            <div class="time-box">
+                <h2>Local Time</h2>
+                <div class="time" id="local-time">Loading...</div>
+                <div class="date" id="local-date">Loading...</div>
+            </div>
+
+            <!-- Selected Time Zone Box with Dropdown above -->
+            <div class="time-box">
+                <h2>Selected Time Zone</h2>
+                
+                <!-- Dropdown above the time -->
+                <div class="dropdown-container">
+                    <label for="timezone-select" class="form-label">Select Time Zone:</label>
+                    <select class="form-select" id="timezone-select">
+                        <option value="America/New_York">New York</option>
+                        <option value="Europe/London">London</option>
+                        <option value="Australia/Sydney">Sydney</option>
+                        <option value="Asia/Tokyo">Tokyo</option>
+                        <option value="Europe/Berlin">Berlin</option>
+                    </select>
+                </div>
+                
+                <div class="time" id="selected-time">Loading...</div>
+                <div class="date" id="selected-date">Loading...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Function to format time in 12-hour format with AM/PM
+    function formatTime(date) {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+        let period = hours >= 12 ? 'PM' : 'AM';
+        
+        // Convert hours to 12-hour format
+        hours = hours % 12;
+        hours = hours ? hours : 12; // 0 becomes 12
+        
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        
+        return `${hours}:${minutes}:${seconds} ${period}`;
+    }
+
+    // Function to format the date in a readable format (e.g., December 7, 2025)
+    function formatDate(date) {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
+
+    // Function to update the local time and the time of the selected time zone
+    function updateTime() {
+        const localTime = new Date();
+        
+        // Local Time Update
+        document.getElementById('local-time').textContent = formatTime(localTime);
+        document.getElementById('local-date').textContent = formatDate(localTime);
+        
+        // Selected Time Zone Update
+        const selectedTimeZone = document.getElementById('timezone-select').value;
+        const options = { timeZone: selectedTimeZone };
+        const selectedDate = new Date().toLocaleString('en-US', options);
+
+        // Parse the selected date to update the time and date
+        const selectedTime = new Date(selectedDate);
+        document.getElementById('selected-time').textContent = formatTime(selectedTime);
+        document.getElementById('selected-date').textContent = formatDate(selectedTime);
+    }
+
+    // Initialize the time update every second
+    setInterval(updateTime, 1000);
+
+    // Initial time load
+    updateTime();
+
+    // Update selected time when the dropdown value changes
+    document.getElementById('timezone-select').addEventListener('change', updateTime);
+</script>
+
+</body>
+</html>

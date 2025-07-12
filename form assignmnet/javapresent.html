@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Strict Mode Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f0f0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    pre {
+      background-color: #f8f8f8;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Strict Mode Demo</h1>
+    <p>Open the browser console (F12) to see the results!</p>
+    <h3>Non-Strict Mode Example</h3>
+    <pre>
+function nonStrictExample() {
+  x = 10; // Creates global variable (bad practice)
+  console.log("Non-strict: x =", x);
+}
+nonStrictExample();
+    </pre>
+    <button onclick="nonStrictExample()">Run Non-Strict Code</button>
+
+    <h3>Strict Mode Example</h3>
+    <pre>
+function strictExample() {
+  "use strict";
+  try {
+    x = 10; // Throws ReferenceError
+    console.log("Strict: x =", x);
+  } catch (e) {
+    console.log("Strict mode error:", e.message);
+  }
+}
+strictExample();
+    </pre>
+    <button onclick="strictExample()">Run Strict Mode Code</button>
+
+    <h3>Strict Mode Function Scope</h3>
+    <pre>
+function mixedExample() {
+  y = 5; // Non-strict, creates global
+  console.log("Non-strict: y =", y);
+  function innerStrict() {
+    "use strict";
+    try {
+      z = 15; // Throws ReferenceError
+      console.log("Strict: z =", z);
+    } catch (e) {
+      console.log("Strict mode error in function:", e.message);
+    }
+  }
+  innerStrict();
+}
+mixedExample();
+    </pre>
+    <button onclick="mixedExample()">Run Mixed Scope Code</button>
+  </div>
+
+  <script>
+    function nonStrictExample() {
+      x = 10; // Creates global variable (bad practice)
+      console.log("Non-strict: x =", x);
+    }
+
+    function strictExample() {
+      "use strict";
+      
+        x = 10; // Throws ReferenceError
+        console.log("Strict: x =", x);
+    }
+
+    function mixedExample() {
+      y = 5; // Non-strict, creates global
+      console.log("Non-strict: y =", y);
+      function innerStrict() {
+        "use strict";
+       
+          z = 15; // Throws ReferenceError
+          console.log("Strict: z =", z);
+      
+      }
+      innerStrict();
+    }
+  </script>
+</body>
+</html>

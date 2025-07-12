@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON User Data</title>
+  <style>
+    #container {
+      width: 70%;
+      margin: 20px auto;
+      border: 2px solid #4A69BD; /* Dark blue border */
+      font-family: Arial, sans-serif;
+    }
+    .row {
+      display: flex;
+      padding: 10px;
+    }
+    .header {
+      background-color: #4A69BD;
+      color: white;
+      font-weight: bold;
+    }
+    .row span {
+      flex: 1;
+      text-align: left;
+    }
+    .even {
+      background-color: #f5f5f5;
+    }
+    .odd {
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body onload="loadData()">
+
+  <div id="container"></div>
+
+  <script>
+    function loadData() {
+
+
+      // Add fresh data
+      const users = [
+        { fullName: "Vincent Williamson", age: 31, jobTitle: "iOS Developer", location: "Washington" },
+        { fullName: "Joseph Smith", age: 27, jobTitle: "Project Manager", location: "Somerville, MA" },
+        { fullName: "Justin Black", age: 26, jobTitle: "Front-End Developer", location: "Los Angeles" },
+        { fullName: "Sean Guzman", age: 25, jobTitle: "Web Designer", location: "San Francisco" },
+        { fullName: "Keith Carter", age: 20, jobTitle: "Graphic Designer", location: "New York, NY" },
+        { fullName: "Maya Lee", age: 28, jobTitle: "UX Designer", location: "Austin, TX" },
+        { fullName: "Daniel Craig", age: 29, jobTitle: "Back-End Developer", location: "Chicago" },
+        { fullName: "Sophie Turner", age: 32, jobTitle: "Scrum Master", location: "Boston" },
+        { fullName: "Alex Brown", age: 24, jobTitle: "QA Engineer", location: "Denver" },
+        { fullName: "Nina Patel", age: 26, jobTitle: "DevOps Engineer", location: "Seattle" }
+      ];
+
+      localStorage.setItem("users", JSON.stringify(users));
+
+      // Read from localStorage and render
+      const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+      const container = document.getElementById("container");
+
+      // Header
+      const header = document.createElement("div");
+      header.className = "row header";
+      header.innerHTML = `
+        <span>Full Name</span>
+        <span>Age</span>
+        <span>Job Title</span>
+        <span>Location</span>
+      `;
+      container.appendChild(header);
+
+      // User Rows
+      storedUsers.forEach((user, index) => {
+        const row = document.createElement("div");
+        row.className = "row " + (index % 2 === 0 ? "even" : "odd");
+        row.innerHTML = `
+          <span>${user.fullName}</span>
+          <span>${user.age}</span>
+          <span>${user.jobTitle}</span>
+          <span>${user.location}</span>
+        `;
+        container.appendChild(row);
+      });
+    }
+  </script>
+
+</body>
+</html>

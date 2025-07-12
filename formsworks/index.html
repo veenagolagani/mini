@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Form Assignment</title>
+        <link rel="stylesheet" href="./styles.css">
+       
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    </head>
+    <body>
+        <div class="container">
+                    <h1 class="heading">Job Application Form</h1>
+                    <p class="subheading">Please Fill Out the Form Below To Submit Your Job Application</p>
+                    <form class="form" id="form" >
+                        <label class="name">Name</label>
+                    <div class="div1">
+    
+                            <div class="div2">
+                                
+                        <input type="text" name="firstname" id="firstname">
+                        <label for="firstname" >First Name<span class="required">*</span></label>
+                        <div id="incorrectfname" class="incorrect"></div>
+                        </div>
+                        <div class="div2">
+                        <input type="text" name="lastname" id="lastname">
+                        <label for="lastname">Last Name<span class="required">*</span></label>
+                        <div id="incorrectlname" class="incorrect"></div>
+                        </div>
+                    </div>
+                    <div class="div1">
+                        <div class="div2">
+                            <label for="email">Email<span class="required">*</span></label>
+                            <input type="text" placeholder="ex:myname@example.com" name="email" id="email">
+                            <span>example@example.com</span>
+                            <div id="incorrectEmail" class="incorrect"></div>
+                        </div>
+                       
+                        <div class="div2">
+                            <label for="phn">Phone Number<span class="required">*</span></label>
+                            <input type="text" placeholder="000-000-0000" name="phn" id="phn">
+                            <div id="incorrectphn" class="incorrect"></div>
+                        </div>
+                    </div>
+                    <div class="div2">
+                        <label class="name">Gender<span class="required">*</span></label>
+                        <label class="radio" for="gender"><input type="radio" name="gender"  id="male">Male</label>
+                        <label class="radio" for="gender"><input type="radio" name="gender" id="female">Female</label>
+                        <label class="radio" for="gender"><input type="radio" name="gender" id="transgender">Transgender</label>
+                    </div>
+                    <div class="div1">
+                        <div class="div2">
+                        <label for="city">Current city<span class="required">*</span></label>
+                        <select name="city" id="city" required>
+                            <option value="">--Please Select--</option>
+                            <option value="Vizag">Vizag</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Vijayawada">Vijayawada</option>
+                            <option value="Chennai">Chennai</option>
+                          </select>
+                          
+                        </div>
+                    </div>
+                    <div class="div1">
+                        <div class="div2">
+                            <label for="position" >Applied Position<span class="required">*</span></label>
+                            <input name="position" type="text" id="position">
+                            <div id="incorrectApl" class="incorrect"></div>
+                        </div>
+                        <div class="div2">
+                            <label for="date">Earliest Possible Start Date<span class="required">*</span></label>
+                            <input type="date" name="date" id="date">
+                            <span>Date</span>
+                        </div>
+                    </div>
+                        <div class="div1">
+                            <div class="div2">
+                                <label for="interview">Preferred Interview Date</label>
+                                <input type="date" name="interview" id="interview" oninput="display()">
+                            </div>
+                            <div class="div2">
+                                <div id="selected-date" for="slottime"></div>
+                                <br>
+                                <div class="slots">
+                                   
+                                    <button type="button" class="slot" name="slottime" onclick="clicked(event)">11.30 am</button>
+                                    <button type="button" class="slot" name="slottime" onclick="clicked(event)">12.30 am</button>
+                                    <button type="button" class="slot" name="slottime" onclick="clicked(event)">1.30 am</button>
+                                    <button type="button" class="slot" name="slottime" onclick="clicked(event)">4.30 am</button>
+                                    <button type="button" class="slot" name="slottime" onclick="clicked(event)">5.30 am</button>
+                                    <button type="button" class="slot" name="slottime" onclick="clicked(event)">6.30 am</button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div2">
+                            <label for="resumefile">Upload Resume<span class="required">*</span></label>
+                            <div class="fileupload">
+                                <i class="fas fa-cloud-upload-alt uploadicon"></i>
+                                <h3>Upload file</h3>
+
+                             <input type="file" name="resumefile" placeholder="Drag and drop files here" accept=".pdf,.doc,.jpeg"  hidden id="resume">
+                             <p id="file-name">Drag and drop files here </p>
+                            
+                            </div>
+                        </div>
+                      <div class="div2">
+                        <div class="div1 submit">
+                        <button type="submit" id="apply">Apply</button>
+                        </div>
+                    </div>
+                    </form>
+                    <script src="./script.js"></script>  
+
+             </div>
+             <div id="popup" class="popup">
+                <div class="message">
+                  <span id="close" class="close">&times;</span>
+                  <p>Your details have been successfully stored in local storage</p>
+                </div>
+              </div>
+              <script src="./script.js"></script>       
+    </body>
+</html>
